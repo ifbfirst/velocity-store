@@ -6,7 +6,6 @@ interface CartState {
   items: CartItem[];
   addItem: (product: Product) => void;
   removeItem: (productId: string) => void;
-  // Добавляем недостающие методы в интерфейс типов
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
 }
@@ -34,7 +33,6 @@ export const useCart = create<CartState>()(
           items: state.items.filter((i) => i.product.id !== productId),
         })),
 
-      // Добавляем метод изменения количества конкретного товара
       updateQuantity: (productId, quantity) =>
         set((state) => ({
           items: state.items.map((item) =>
@@ -42,7 +40,6 @@ export const useCart = create<CartState>()(
           ),
         })),
 
-      // Добавляем метод полной очистки корзины
       clearCart: () => set({ items: [] }),
     }),
     { name: 'velocity-cart-storage' }
