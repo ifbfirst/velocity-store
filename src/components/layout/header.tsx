@@ -42,7 +42,7 @@ export function Header() {
           
        
           <Link 
-            href="/login" 
+            href="#" 
             className={buttonVariants({ variant: 'ghost', size: 'icon', className: 'text-muted-foreground hover:text-foreground' })}
           >
             <User className="h-5 w-5" />
