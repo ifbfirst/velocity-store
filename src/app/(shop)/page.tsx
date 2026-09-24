@@ -3,11 +3,11 @@ import { ProductCard } from '@/components/product/product-card';
 import { ArrowRight, ShoppingBag, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic'; 
-
 async function getProducts(): Promise<Product[]> {
   try {
-    const res = await fetch('https://fakestoreapi.com/products?limit=8');
+    const res = await fetch('https://fakestoreapi.com/products?limit=8', { 
+      cache: 'no-store' 
+    });
     if (!res.ok) throw new Error('Не удалось загрузить товары');
     return res.json();
   } catch (error) {
