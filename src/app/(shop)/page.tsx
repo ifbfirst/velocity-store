@@ -2,22 +2,24 @@ import { Product } from '@/types';
 import { ProductCard } from '@/components/product/product-card';
 import { ArrowRight, ShoppingBag, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
 import Link from 'next/link';
+import { mock } from '../mock';
 
-async function getProducts(): Promise<Product[]> {
-  try {
-    const res = await fetch('https://fakestoreapi.com/products?limit=8', { 
-      next: { revalidate: 3600 }
-    });
-    if (!res.ok) throw new Error('Не удалось загрузить товары');
-    return res.json();
-  } catch (error) {
-    console.error('Ошибка fetch на главной странице:', error);
-    return [];
-  }
-}
+// async function getProducts(): Promise<Product[]> {
+//   try {
+//     const res = await fetch('https://fakestoreapi.com/products?limit=8', { 
+//       next: { revalidate: 3600 }
+//     });
+    
+//     if (!res.ok) throw new Error('Не удалось загрузить товары');
+//     return res.json();
+//   } catch (error) {
+//     console.error('Ошибка fetch на главной странице:', error);
+//     return [];
+//   }
+// }
 
 export default async function HomePage() {
-  const products = await getProducts();
+  // const products = await getProducts();
 
   return (
     <div className="w-full pb-16 space-y-16 animate-in fade-in duration-500">
@@ -95,9 +97,9 @@ export default async function HomePage() {
             Смотреть все <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        {products.length > 0 ? (
+        {mock.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {products.map((product) => (
+            {mock.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
