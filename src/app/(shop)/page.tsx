@@ -6,7 +6,7 @@ import Link from 'next/link';
 async function getProducts(): Promise<Product[]> {
   try {
     const res = await fetch('https://fakestoreapi.com/products?limit=8', { 
-      cache: 'no-store' 
+      next: { revalidate: 3600 }
     });
     if (!res.ok) throw new Error('Не удалось загрузить товары');
     return res.json();

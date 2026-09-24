@@ -11,7 +11,7 @@ interface CatalogPageProps {
 const ITEMS_PER_PAGE = 4; 
 async function getCatalogData(page: number, limit: number) {
   try {
-    const res = await fetch('https://fakestoreapi.com/products?page=${page}&limit=${limit}');
+    const res = await fetch('https://fakestoreapi.com/products?page=${page}&limit=${limit}',{next: { revalidate: 3600 }});
     if (!res.ok) throw new Error('Не удалось загрузить данные');
     
     const allProducts: Product[] = await res.json();
