@@ -1,6 +1,7 @@
 import { Product } from '@/types';
 import { ProductCard } from '@/components/product/product-card';
 import Link from 'next/link';
+import { mock } from '@/app/mock';
 
 export const revalidate = 60;
 
@@ -9,34 +10,37 @@ interface CatalogPageProps {
 }
 
 const ITEMS_PER_PAGE = 4; 
-async function getCatalogData(page: number, limit: number) {
-  try {
-    const res = await fetch('https://fakestoreapi.com/products?page=${page}&limit=${limit}',{next: { revalidate: 3600 }});
-    if (!res.ok) throw new Error('Не удалось загрузить данные');
+// async function getCatalogData(page: number, limit: number) {
+//   try {
+//     const res = await fetch('https://fakestoreapi.com/products?page=${page}&limit=${limit}',{next: { revalidate: 3600 }});
+//     if (!res.ok) throw new Error('Не удалось загрузить данные');
     
-    const allProducts: Product[] = await res.json();
-    const total = allProducts.length; 
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-    const paginatedProducts = allProducts.slice(startIndex, endIndex);
+//     const allProducts: Product[] = await res.json();
+//     const total = allProducts.length; 
+//     const startIndex = (page - 1) * limit;
+//     const endIndex = startIndex + limit;
+//     const paginatedProducts = allProducts.slice(startIndex, endIndex);
 
-    return {
-      products: paginatedProducts,
-      total
-    };
-  } catch (error) {
-    console.error('Ошибка пагинации:', error);
-    return { products: [], total: 0 };
-  }
-}
+//     return {
+//       products: paginatedProducts,
+//       total
+//     };
+//   } catch (error) {
+//     console.error('Ошибка пагинации:', error);
+//     return { products: [], total: 0 };
+//   }
+// }
 
 export default async function CatalogPage({ searchParams }: CatalogPageProps) {
-  const resolvedSearchParams = await searchParams;
-  const currentPage = Number(resolvedSearchParams.page) || 1;
-
-  const { products, total } = await getCatalogData(currentPage, ITEMS_PER_PAGE);
-  
-  const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+  // const resolvedSearchParams = await searchParams;
+  const params = await searchParams;
+  const currentPage = Number(params.page) || 1;
+  // const currentPage = Number(resolvedSearchParams.page) || 1;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  // const { products, total } = await getCatalogData(currentPage, ITEMS_PER_PAGE);
+  const paginatedProducts = mock.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(mock.length / ITEMS_PER_PAGE);
 
   return (
     <main className="container mx-auto px-4 py-12 max-w-7xl space-y-10">
@@ -45,16 +49,16 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight">Каталог товаров</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Показано {products.length} из {total} товаров
+            Показано {paginatedProducts.length} из {mock.length} товаров
           </p>
         </div>
         <div className="text-sm font-medium text-muted-foreground bg-zinc-100 dark:bg-zinc-800 px-3 py-1 rounded-full">
           Страница {currentPage} из {totalPages}
         </div>
       </div>
-      {products.length > 0 ? (
+      {paginatedProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
+          {paginatedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
