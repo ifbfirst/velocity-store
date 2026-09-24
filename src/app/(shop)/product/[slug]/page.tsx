@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { Product } from '@/types';
 import { AddToCartButton } from './add-to-cart-button';
+import { mock } from '@/app/mock';
 
 export const revalidate = 60; 
 
@@ -11,22 +12,22 @@ interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
-async function getProduct(id: string): Promise<Product | null> {
-  try {
-    const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+// async function getProduct(id: string): Promise<Product | null> {
+//   try {
+//     const res = await fetch(`https://fakestoreapi.com/products/${id}`);
 
-    if (!res.ok) return null;
-    return res.json();
-  } catch (error) {
-    console.error('Ошибка при получении товара:', error);
-    return null;
-  }
-}
+//     if (!res.ok) return null;
+//     return res.json();
+//   } catch (error) {
+//     console.error('Ошибка при получении товара:', error);
+//     return null;
+//   }
+// }
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = await getProduct(slug);
-
+  // const product = await getProduct(slug);
+const product = mock.find((product) => product.id === Number(slug));
   if (!product) {
     notFound();
   }
@@ -63,7 +64,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </h1>
             
             <div className="text-2xl md:text-3xl font-extrabold text-foreground pt-2">
-              \${product.price.toFixed(2)}
+              ${product.price.toFixed(2)}
             </div>
             
             <div className="border-t pt-4">

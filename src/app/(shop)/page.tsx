@@ -20,6 +20,7 @@ import { mock } from '../mock';
 
 export default async function HomePage() {
   // const products = await getProducts();
+const popularProducts = mock.slice(0, 8);
 
   return (
     <div className="w-full pb-16 space-y-16 animate-in fade-in duration-500">
@@ -97,9 +98,9 @@ export default async function HomePage() {
             Смотреть все <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        {mock.length > 0 ? (
+        {popularProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {mock.map((product) => (
+            {popularProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
