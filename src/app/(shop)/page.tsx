@@ -3,7 +3,7 @@ import { ProductCard } from '@/components/product/product-card';
 import { ArrowRight, ShoppingBag, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
 import Link from 'next/link';
 
-export const revalidate = 60; 
+export const dynamic = 'force-dynamic'; 
 
 async function getProducts(): Promise<Product[]> {
   try {

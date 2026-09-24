@@ -33,7 +33,7 @@ export function Footer() {
           <h4 className="text-sm font-bold text-foreground uppercase tracking-wider">Покупателям</h4>
           <ul className="space-y-2 text-sm">
             <li><Link href="/cart" className="hover:text-foreground transition-colors">Моя корзина</Link></li>
-            <li><Link href="/login" className="hover:text-foreground transition-colors">Личный кабинет</Link></li>
+            <li><Link href="#" className="hover:text-foreground transition-colors">Личный кабинет</Link></li>
             <li><Link href="/shipping" className="hover:text-foreground transition-colors">Доставка и оплата</Link></li>
             <li><Link href="/faq" className="hover:text-foreground transition-colors">Вопросы и ответы</Link></li>
           </ul>
