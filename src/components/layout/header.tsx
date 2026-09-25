@@ -5,6 +5,7 @@ import { ShoppingBag, User, Heart, Search } from 'lucide-react';
 import { useCart } from '@/store/cart';
 import { buttonVariants } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
+import { SearchInput } from './search-input';
 
 export function Header() {
   const items = useCart((state) => state.items);
@@ -26,18 +27,9 @@ export function Header() {
             VELOCITY
           </span>
         </Link>
-
     
-        <div className="hidden sm:flex relative max-w-md w-full mx-8">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <input
-            type="text"
-            placeholder="Поиск товаров..."
-            className="w-full h-9 rounded-full border border-input bg-muted/50 pl-9 pr-4 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-          />
-        </div>
+        <SearchInput />
 
-     
         <div className="flex items-center space-x-2 sm:space-x-4">
           
        
