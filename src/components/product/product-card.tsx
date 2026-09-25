@@ -14,7 +14,6 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-all hover:shadow-md">
-      {/* Орачиваем шапку с картинкой в ссылку */}
       <Link href={`/product/${product.id}`} className="block cursor-pointer">
         <CardHeader className="p-0">
           <div className="relative aspect-square w-full bg-white">
@@ -32,12 +31,11 @@ export function ProductCard({ product }: { product: Product }) {
       <CardContent className="p-4 flex-1">
         <span className="text-xs text-muted-foreground uppercase">{product.category}</span>
         
-        {/* Оборачиваем заголовок в ссылку */}
         <Link href={`/product/${product.id}`} className="block hover:underline mt-1">
           <CardTitle className="line-clamp-2 text-sm font-semibold h-10">{product.title}</CardTitle>
         </Link>
         
-        <p className="text-lg font-bold mt-2">\${product.price.toFixed(2)}</p>
+        <p className="text-lg font-bold mt-2">${product.price.toFixed(2)}</p>
       </CardContent>
       
       <CardFooter className="p-4 pt-4">
